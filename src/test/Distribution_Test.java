@@ -1,4 +1,7 @@
+package test;
 import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
+
+import core.utilities.Parse;
 
 public class Distribution_Test {
 
