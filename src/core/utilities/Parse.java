@@ -123,8 +123,8 @@ public class Parse {
 		}
 
 		if (cmd.hasOption("i")) {
-			// InOut.name_buf = cmd.getOptionValue("i");
 			String name_buf = cmd.getOptionValue("i");
+			InOut.filename = name_buf;
 			System.out.println("-i/Graph File with argument " + name_buf);
 		} else {
 			System.err.println("Error: No input file given");
@@ -159,6 +159,7 @@ public class Parse {
 			 * Ants.as_flag = false; Ants.eas_flag = false; Ants.ras_flag = false; Ants.bwas_flag = false; Ants.acs_flag
 			 * = false;
 			 */
+			InOut.dijkstra_flag = false;
 		}
 
 		if (cmd.hasOption("u")) {
@@ -191,7 +192,7 @@ public class Parse {
 			System.out.println("-z/acs is set, run Ant Colony System");
 		}
 		if (cmd.hasOption("dij")) {
-			// dij_flag = true;
+			InOut.dijkstra_flag = true;
 			System.out.println("-dij is set, run dijkstra algorithm");
 		}
 
