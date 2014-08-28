@@ -11,9 +11,11 @@ public class Test_Command {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		// argList.add("-h");
 		argList.add("-quiet");
 		argList.add("-i");
 		argList.add(TEST_FILE);
+		argList.add("-dij");
 
 		System.out.println(argList);
 

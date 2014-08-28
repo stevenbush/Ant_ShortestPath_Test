@@ -8,9 +8,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * @author jiyuanshi
+ * @author jiyuanshi (shi_jiyuan@outlook.com)
+ * @version 1.0
+ * @date 2014-08-26
  * 
- *         This class is used for parse the command line arguments
+ *       This class is used for parse the command line arguments
  *
  */
 public class Parse {
@@ -49,6 +51,7 @@ public class Parse {
 		// options.addOption("x", "mmas", false, "apply MAX-MIN ant_colony system");
 		options.addOption("y", "bwas", false, "apply best-worst ant_colony system");
 		options.addOption("z", "acs", false, "apply ant_colony colony system");
+		options.addOption("dij", false, "apply dijkstra algorithm");
 		options.addOption("quiet", false, "reduce output to a minimum, no extra files");
 		options.addOption("h", "help", false, "display this help text and exit");
 
@@ -145,6 +148,9 @@ public class Parse {
 		if (cmd.hasOption("z")) {
 			algorithmCount++;
 		}
+		if (cmd.hasOption("dij")) {
+			algorithmCount++;
+		}
 		if (algorithmCount > 1) {
 			System.err.println("Error: More than one ACO algorithm enabled in the command line.");
 			System.exit(1);
@@ -183,6 +189,10 @@ public class Parse {
 			// Ants.acs_flag = true;
 			// InOut.set_default_acs_parameters();
 			System.out.println("-z/acs is set, run Ant Colony System");
+		}
+		if (cmd.hasOption("dij")) {
+			// dij_flag = true;
+			System.out.println("-dij is set, run dijkstra algorithm");
 		}
 
 		/*
