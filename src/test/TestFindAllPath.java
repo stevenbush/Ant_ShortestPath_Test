@@ -47,6 +47,7 @@ public class TestFindAllPath {
 	public static ArrayList<ArrayList<Integer>> find_all_path(
 			SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph) {
 		ArrayList<ArrayList<Integer>> all_paths = new ArrayList<>();
+		ArrayList<E>
 		boolean[] visitedflag = new boolean[graph.vertexSet().size()];
 		Stack<Integer> stack = new Stack<>();
 		System.out.println(0);
