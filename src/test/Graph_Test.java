@@ -37,8 +37,6 @@ public class Graph_Test {
 		System.out.println(dijkstraShortestPath.getPathLength());
 		System.out.println(dijkstraShortestPath.getPathEdgeList());
 
-		write_graph_to_file(sdaGraph, 1);
-		read_graph_from_file("v8_e11_i1.csv");
 	}
 
 	public static void write_graph_to_file(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph,

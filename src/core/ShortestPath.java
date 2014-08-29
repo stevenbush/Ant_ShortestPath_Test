@@ -1,5 +1,7 @@
 package core;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -17,6 +19,8 @@ import core.utilities.Graph_Generator;
  */
 public class ShortestPath {
 
+	/** the name of this problem */
+	public String name;
 	/** The graph of this problem */
 	public SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph;
 	/** the length of shortest path */
@@ -30,6 +34,10 @@ public class ShortestPath {
 
 	public ShortestPath(String inputfile) {
 		super();
+		String[] strarray = inputfile.split("/");
+		String filename = (strarray[strarray.length - 1]).split("\\.")[0];
+		// System.out.println(filename);
+		name = filename;
 		graph = Graph_Generator.read_graph_from_file(inputfile);
 		start_vertex = 0;
 		end_vertex = graph.vertexSet().size() - 1;

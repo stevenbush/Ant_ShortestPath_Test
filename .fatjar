@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Thu Aug 28 13:38:23 CST 2014
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=Ant_ShortestPath_Test_fat.jar
+manifest.mergeall=true
+manifest.mainclass=core.AlgControl
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
