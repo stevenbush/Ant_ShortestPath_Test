@@ -41,6 +41,7 @@ public class Parse {
 		options.addOption("a", "alpha", true, "# alpha (influence of pheromone trails)");
 		options.addOption("b", "beta", true, "# beta (influence of heuristic information)");
 		options.addOption("e", "rho", true, "# rho: pheromone trail evaporation");
+		options.addOption("l", "lrho", true, "# lrho: local pheromone trail evaporation");
 		options.addOption("q", "q0", true, "# q_0: prob. of best choice in tour construction");
 		options.addOption("c", "elitistants", true, "# number of elitist ants");
 		options.addOption("f", "rasranks", true, "# number of ranks in rank-based Ant System");
@@ -227,6 +228,13 @@ public class Parse {
 			System.out.println("-e/rho with argument " + Ants.rho);
 		} else {
 			System.out.println("Note: Rho is set to default " + Ants.rho);
+		}
+
+		if (cmd.hasOption("l")) {
+			Ants.lrho = Double.valueOf(cmd.getOptionValue("l"));
+			System.out.println("-e/lrho with argument " + Ants.lrho);
+		} else {
+			System.out.println("Note: lrho is set to default " + Ants.lrho);
 		}
 
 		if (cmd.hasOption("q")) {

@@ -71,7 +71,7 @@ public class Utilities {
 	 *            mean
 	 * @return standard deviation
 	 */
-	public static Double std_deviation(Double[] values, int max, Double mean) {
+	public static Double std_deviation(int[] values, int max, Double mean) {
 		int j;
 		double dev = 0.;
 

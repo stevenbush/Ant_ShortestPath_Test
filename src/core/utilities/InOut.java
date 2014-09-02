@@ -24,7 +24,7 @@ public class InOut {
 
 	public static final String PROG_ID_STR = "Algorithms for the TSP";
 	public static Double[] best_in_try;
-	public static Double[] best_found_at;
+	public static int[] best_found_at;
 	public static Double[] time_best_found;
 	public static Double[] time_total_run;
 	public static String[] aw_best_path_in_try;
@@ -55,7 +55,7 @@ public class InOut {
 	public static double restart_time;
 	/** try counter */
 	public static Integer n_try;
-	/** counter of number constructed solutions */
+	/** counter of number of constructed solutions */
 	public static Integer n_solutions;
 	/** time used until some given event */
 	public static double time_used;
@@ -75,7 +75,7 @@ public class InOut {
 	/** branching factor when best solution is found */
 	// public static double found_branching;
 	/** iteration in which best solution is found */
-	public static Double found_best;
+	public static int found_best;
 
 	/* ------------------------------------------------------------------------ */
 	public static File report, comp_report, stat_report;
@@ -109,6 +109,7 @@ public class InOut {
 		printToFile(file, "Ants.alpha\t\t " + Ants.alpha);
 		printToFile(file, "Ants.beta\t\t " + Ants.beta);
 		printToFile(file, "Ants.rho\t\t " + Ants.rho);
+		printToFile(file, "Ants.lrho\t\t " + Ants.lrho);
 		printToFile(file, "Ants.q_0\t\t " + Ants.q_0);
 		printToFile(file, "Ants.elitist_ants\t " + Ants.elitist_ants);
 		printToFile(file, "Ants.ras_ranks\t\t " + Ants.ras_ranks);
@@ -157,6 +158,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.5;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.0;
 		Ants.ras_ranks = 0;
 		Ants.elitist_ants = 0;
@@ -171,6 +173,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.5;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.0;
 		Ants.ras_ranks = 0;
 		Ants.elitist_ants = Ants.n_ants;
@@ -185,6 +188,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.1;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.0;
 		Ants.ras_ranks = 6;
 		Ants.elitist_ants = 0;
@@ -199,6 +203,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.1;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.0;
 		Ants.ras_ranks = 0;
 		Ants.elitist_ants = 0;
@@ -213,6 +218,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.1;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.9;
 		Ants.ras_ranks = 0;
 		Ants.elitist_ants = 0;
@@ -226,6 +232,7 @@ public class InOut {
 		Ants.alpha = 1.0;
 		Ants.beta = 2.0;
 		Ants.rho = 0.5;
+		Ants.lrho = 0.1;
 		Ants.q_0 = 0.0;
 		max_tries = 10;
 		max_solutions = 0;
@@ -259,7 +266,7 @@ public class InOut {
 		}
 
 		pop_mean = Utilities.meanr(l, Ants.n_ants);
-		pop_stddev = Utilities.std_deviation(l, Ants.n_ants, pop_mean);
+		pop_stddev = Utilities.std_deviationr(l, Ants.n_ants, pop_mean);
 
 		if (stat_report != null) {
 			printToFile(stat_report, iteration + "\t" + pop_mean + "\t" + pop_stddev + "\t" + (pop_stddev / pop_mean));
@@ -296,7 +303,7 @@ public class InOut {
 		time_best_found[ntry] = time_used;
 		time_total_run[ntry] = Timer.elapsed_time();
 		aw_best_path_in_try[ntry] = Ants.best_so_far_ant.path.toString();
-
+		
 		System.out.println("\ntry " + ntry + ", Best " + best_in_try[ntry] + ", found at iteration "
 				+ best_found_at[ntry] + ", found at time " + time_best_found[ntry] + "\n");
 
@@ -317,11 +324,11 @@ public class InOut {
 		best_path_length = Utilities.best_of_vector(best_in_try, max_tries);
 		worst_path_length = Utilities.worst_of_vector(best_in_try, max_tries);
 
-		avg_cyc_to_bst = Utilities.meanr(best_found_at, max_tries);
+		avg_cyc_to_bst = Utilities.mean(best_found_at, max_tries);
 		stddev_iterations = Utilities.std_deviation(best_found_at, max_tries, avg_cyc_to_bst);
 
 		avg_sol_quality = Utilities.meanr(best_in_try, max_tries);
-		stddev_best = Utilities.std_deviation(best_in_try, max_tries, avg_sol_quality);
+		stddev_best = Utilities.std_deviationr(best_in_try, max_tries, avg_sol_quality);
 
 		t_avgbest = Utilities.meanr(time_best_found, max_tries);
 		System.out.println(" t_avgbest = " + t_avgbest);
@@ -375,7 +382,7 @@ public class InOut {
 		assert (max_tries <= Utilities.MAXIMUM_NO_TRIES);
 
 		best_in_try = new Double[max_tries];
-		best_found_at = new Double[max_tries];
+		best_found_at = new int[max_tries];
 		time_best_found = new Double[max_tries];
 		time_total_run = new Double[max_tries];
 
