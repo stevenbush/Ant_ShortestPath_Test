@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class InOut {
 	public static int[] best_found_at;
 	public static Double[] time_best_found;
 	public static Double[] time_total_run;
-	public static String[] aw_best_path_in_try;
+	public static ArrayList<ArrayList<Integer>> aw_best_path_in_try;
 
 	/** the flag to represent whether to use dijkstra algorithm */
 	public static Boolean dijkstra_flag;
@@ -302,8 +303,10 @@ public class InOut {
 		best_found_at[ntry] = found_best;
 		time_best_found[ntry] = time_used;
 		time_total_run[ntry] = Timer.elapsed_time();
-		aw_best_path_in_try[ntry] = Ants.best_so_far_ant.path.toString();
-		
+		System.out.println("ntry: " + ntry);
+		System.out.println(Ants.best_so_far_ant.path);
+		aw_best_path_in_try.add(Ants.best_so_far_ant.path);
+
 		System.out.println("\ntry " + ntry + ", Best " + best_in_try[ntry] + ", found at iteration "
 				+ best_found_at[ntry] + ", found at time " + time_best_found[ntry] + "\n");
 
@@ -386,7 +389,7 @@ public class InOut {
 		time_best_found = new Double[max_tries];
 		time_total_run = new Double[max_tries];
 
-		aw_best_path_in_try = new String[max_tries];
+		aw_best_path_in_try = new ArrayList<ArrayList<Integer>>();
 
 		if (Ants.n_ants < 0) {
 			Ants.n_ants = problem.graph.vertexSet().size();

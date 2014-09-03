@@ -13,8 +13,9 @@ public class Test_Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("dij------------------------");
-		String command = "-dij -i /Users/jiyuanshi/Downloads/SimpleDAG/v8_e12_i4.csv";
+
+		System.out.println("ant------------------------");
+		String command = "-z -r 3 -t 5 -i /Users/jiyuanshi/Downloads/SimpleDAG/v5002_e26491_i0.csv";
 		List<String> argList = new LinkedList<String>();
 		String[] strarray = command.split(" ");
 		for (int i = 0; i < strarray.length; i++) {
@@ -25,8 +26,9 @@ public class Test_Main {
 
 		System.out.println();
 		System.out.println();
-		System.out.println("ant------------------------");
-		command = "-z -i /Users/jiyuanshi/Downloads/SimpleDAG/v8_e12_i4.csv";
+
+		System.out.println("dij------------------------");
+		command = "-dij -i /Users/jiyuanshi/Downloads/SimpleDAG/v5002_e26491_i0.csv";
 		argList.clear();
 		strarray = command.split(" ");
 		for (int i = 0; i < strarray.length; i++) {

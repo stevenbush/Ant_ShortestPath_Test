@@ -1,6 +1,8 @@
 package core.utilities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -46,17 +48,20 @@ public class Graph_Utilities {
 	public static ArrayList<ArrayList<Integer>> find_all_path(
 			SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph, Integer start_vertex, Integer end_vertex) {
 		ArrayList<ArrayList<Integer>> all_paths = new ArrayList<>();
-		ArrayList<List<Integer>> successor_list = new ArrayList<>();
-		for (int i = 0; i < graph.vertexSet().size(); i++) {
-			List<Integer> successors = Graphs.successorListOf(graph, i);
-			successor_list.add(successors);
+		HashMap<Integer, List<Integer>> successor_list = new HashMap<>();
+
+		// System.out.println("start_vertex: " + start_vertex);
+		// System.out.println("end_vertex: " + end_vertex);
+
+		for (Integer vertex : graph.vertexSet()) {
+			successor_list.put(vertex, Graphs.successorListOf(graph, vertex));
 		}
 
 		Stack<Integer> stack = new Stack<>();
 		stack.push(start_vertex);
 		while (!stack.empty()) {
 			Integer current_vertex = stack.peek();
-			if (current_vertex == end_vertex) {
+			if (current_vertex.intValue() == end_vertex.intValue()) {
 				// System.out.println("stack: " + stack);
 				ArrayList<Integer> path = new ArrayList<>();
 				for (Integer vertex : stack) {
@@ -67,7 +72,7 @@ public class Graph_Utilities {
 			} else {
 				if (successor_list.get(current_vertex).isEmpty()) {
 					stack.pop();
-					successor_list.set(current_vertex, Graphs.successorListOf(graph, current_vertex));
+					successor_list.put(current_vertex, Graphs.successorListOf(graph, current_vertex));
 				} else {
 					Integer successor = successor_list.get(current_vertex).get(0);
 					successor_list.get(current_vertex).remove(0);

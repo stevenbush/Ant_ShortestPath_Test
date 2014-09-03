@@ -49,13 +49,16 @@ public class Graph_Generator {
 		Integer startVertex = 0;
 		Integer endVertex = 0 + V_Number + 1;
 
+		// System.out.println("startVertex: " + startVertex);
+		// System.out.println("endVertex: " + endVertex);
+
 		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> sdaGraph = new SimpleDirectedWeightedGraph<>(
 				DefaultWeightedEdge.class);
 
 		UniformIntegerDistribution vertexdistribution = new UniformIntegerDistribution(1, V_Number);
 		UniformIntegerDistribution weightDistribution = new UniformIntegerDistribution(1, 10);
 
-		while (sdaGraph.edgeSet().size() < E_Number) {
+		while (sdaGraph.edgeSet().size() < E_Number || sdaGraph.vertexSet().size() < V_Number) {
 
 			// random generate the edge of graph
 			Integer source = vertexdistribution.sample();
@@ -83,7 +86,7 @@ public class Graph_Generator {
 		// System.out.println("startvertexs: " + startvertexs);
 		// System.out.println("endvertexs: " + endvertexs);
 
-		// and the a start and end vertex to this graph
+		// a the a start and end vertex to this graph
 		for (Integer vertexindex : startvertexs) {
 			Double weight = weightDistribution.sample() * 1.0;
 			Graphs.addEdgeWithVertices(sdaGraph, startVertex, vertexindex, weight);

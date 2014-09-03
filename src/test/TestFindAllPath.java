@@ -17,6 +17,7 @@ import org.jgrapht.traverse.BreadthFirstIterator;
 import org.jgrapht.traverse.DepthFirstIterator;
 
 import core.utilities.Graph_Generator;
+import core.utilities.Graph_Utilities;
 
 public class TestFindAllPath {
 
@@ -25,81 +26,50 @@ public class TestFindAllPath {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// String filepath = "/Users/jiyuanshi/Downloads/SimpleDAG/v6_e8_i1.csv";
-		// SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph = Graph_Generator
-		// .read_graph_from_file(filepath);
-		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(
-				DefaultWeightedEdge.class);
-		Graphs.addEdgeWithVertices(graph, 0, 1);
-		Graphs.addEdgeWithVertices(graph, 1, 2);
-		Graphs.addEdgeWithVertices(graph, 1, 3);
-		Graphs.addEdgeWithVertices(graph, 1, 4);
-		Graphs.addEdgeWithVertices(graph, 1, 6);
-		Graphs.addEdgeWithVertices(graph, 2, 4);
-		Graphs.addEdgeWithVertices(graph, 4, 6);
-		Graphs.addEdgeWithVertices(graph, 3, 6);
-		Graphs.addEdgeWithVertices(graph, 2, 5);
-		Graphs.addEdgeWithVertices(graph, 5, 6);
+		String filepath = "/Users/jiyuanshi/Downloads/SimpleDAG/v1002_e4843_i0.csv";
+		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph = Graph_Generator
+				.read_graph_from_file(filepath);
+		// SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(
+		// DefaultWeightedEdge.class);
+		// Graphs.addEdgeWithVertices(graph, 0, 1);
+		// Graphs.addEdgeWithVertices(graph, 1, 2);
+		// Graphs.addEdgeWithVertices(graph, 1, 3);
+		// Graphs.addEdgeWithVertices(graph, 1, 4);
+		// Graphs.addEdgeWithVertices(graph, 1, 6);
+		// Graphs.addEdgeWithVertices(graph, 2, 4);
+		// Graphs.addEdgeWithVertices(graph, 4, 6);
+		// Graphs.addEdgeWithVertices(graph, 3, 6);
+		// Graphs.addEdgeWithVertices(graph, 2, 5);
+		// Graphs.addEdgeWithVertices(graph, 5, 6);
 
 		boolean[] visitedflag = new boolean[graph.vertexSet().size()];
 		System.out.println(graph);
+		// System.out.println(Graphs.predecessorListOf(graph, 1001));
 		System.out.println("find_all_path1------------");
-		find_all_path1(graph, 0, graph.vertexSet().size() - 1, visitedflag);
+		// find_all_path1(graph, 0, graph.vertexSet().size() - 1, visitedflag);
 		for (ArrayList<Integer> p : all_paths) {
 			System.out.println(p);
 		}
 		System.out.println("find_all_path------------");
-		ArrayList<ArrayList<Integer>> paths = find_all_path(graph, 0, graph.vertexSet().size() - 1);
+		ArrayList<ArrayList<Integer>> paths = Graph_Utilities.find_all_path(graph, 0, graph.vertexSet().size() - 1);
+		int max_path_length = 0;
 		for (ArrayList<Integer> p : paths) {
 			System.out.println(p);
-		}
-
-	}
-
-	public static ArrayList<ArrayList<Integer>> find_all_path(
-			SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph, Integer start_vertex, Integer end_vertex) {
-		ArrayList<ArrayList<Integer>> all_paths = new ArrayList<>();
-		ArrayList<List<Integer>> successor_list = new ArrayList<>();
-		for (int i = 0; i < graph.vertexSet().size(); i++) {
-			List<Integer> successors = Graphs.successorListOf(graph, i);
-			successor_list.add(successors);
-		}
-
-		Stack<Integer> stack = new Stack<>();
-		stack.push(start_vertex);
-		while (!stack.empty()) {
-			Integer current_vertex = stack.peek();
-			if (current_vertex == end_vertex) {
-				// System.out.println("stack: " + stack);
-				ArrayList<Integer> path = new ArrayList<>();
-				for (Integer vertex : stack) {
-					path.add(vertex);
-				}
-				all_paths.add(path);
-				stack.pop();
-			} else {
-				if (successor_list.get(current_vertex).isEmpty()) {
-					stack.pop();
-					successor_list.set(current_vertex, Graphs.successorListOf(graph, current_vertex));
-				} else {
-					Integer successor = successor_list.get(current_vertex).get(0);
-					successor_list.get(current_vertex).remove(0);
-					stack.push(successor);
-				}
+			if (p.size() > max_path_length) {
+				max_path_length = p.size();
 			}
 		}
+		System.out.println(max_path_length);
 
-		return all_paths;
 	}
 
 	public static void find_all_path1(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> graph,
 			Integer start_vertex, Integer end_vertex, boolean[] visitedflag) {
-		// System.out.println("start: " + start_vertex + "--end " + end_vertex);
 		path.add(start_vertex);
 		visitedflag[start_vertex] = true;
 		List<Integer> successorList = Graphs.successorListOf(graph, start_vertex);
 		for (Integer successor : successorList) {
-			if (successor == end_vertex) {
+			if (successor.intValue() == end_vertex.intValue()) {
 				ArrayList<Integer> new_path = new ArrayList<>();
 				for (Integer integer : path) {
 					new_path.add(integer);

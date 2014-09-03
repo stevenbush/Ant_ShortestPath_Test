@@ -135,6 +135,8 @@ public class Ants {
 		for (i = 0; i < InOut.problem.graph.vertexSet().size(); i++) {
 			a.visited[i] = false;
 		}
+		a.path_length = Double.MAX_VALUE;
+		a.path.clear();
 	}
 
 	/**
@@ -331,6 +333,6 @@ public class Ants {
 		pheromone[pre_node][cur_node] = (1.0 - lrho) * pheromone[pre_node][cur_node] + 0.1 * trail_0;
 		total[pre_node][cur_node] = Math.pow(pheromone[pre_node][cur_node], alpha)
 				* Math.pow(HEURISTIC(pre_node, cur_node), beta);
-		
+
 	}
 }

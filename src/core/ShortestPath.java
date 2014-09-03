@@ -1,6 +1,7 @@
 package core;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,5 +42,6 @@ public class ShortestPath {
 		graph = Graph_Generator.read_graph_from_file(inputfile);
 		start_vertex = 0;
 		end_vertex = graph.vertexSet().size() - 1;
+		shortest_path_edge_list = new ArrayList<DefaultWeightedEdge>();
 	}
 }

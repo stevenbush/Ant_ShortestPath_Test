@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -281,17 +282,19 @@ public class AlgControl {
 			InOut.exit_program();
 
 			InOut.problem.shortest_path_length = Utilities.best_of_vector(InOut.best_in_try, InOut.max_tries);
-			String aw_best_path = InOut.aw_best_path_in_try[Utilities.aw_best_tour_index()];
-			for (int i = 0; i < aw_best_path.length() - 2; i++) {
-				InOut.problem.shortest_path_edge_list.add(InOut.problem.graph.getEdge(
-						Integer.valueOf(aw_best_path.charAt(i)), Integer.valueOf(aw_best_path.charAt(i + 1))));
+			ArrayList<Integer> aw_best_path = InOut.aw_best_path_in_try.get(Utilities.aw_best_tour_index());
+			System.out.println("aw_best_path: " + aw_best_path);
+			for (int i = 0; i < aw_best_path.size() - 1; i++) {
+				System.out.println(aw_best_path.get(i) + "--" + aw_best_path.get(i + 1));
+				InOut.problem.shortest_path_edge_list.add(InOut.problem.graph.getEdge(aw_best_path.get(i),
+						aw_best_path.get(i + 1)));
 			}
 
 			try {
 				Writer w = new OutputStreamWriter(new FileOutputStream("path." + InOut.problem.name), "UTF8");
 				BufferedWriter out = new BufferedWriter(w);
 				out.write(InOut.problem.shortest_path_length + "\n");
-				out.write(aw_best_path);
+				// out.write(aw_best_path);
 				out.close();
 			} catch (IOException e) {
 				System.err.print("Could not write file tour." + InOut.problem.name + " " + e.getMessage());
@@ -303,13 +306,13 @@ public class AlgControl {
 			System.out.println(aw_best_path);
 		}
 
-		for (DefaultWeightedEdge edge : InOut.problem.graph.edgeSet()) {
-			System.out.println(edge + "--" + InOut.problem.graph.getEdgeWeight(edge));
-		}
+		// for (DefaultWeightedEdge edge : InOut.problem.graph.edgeSet()) {
+		// System.out.println(edge + "--" + InOut.problem.graph.getEdgeWeight(edge));
+		// }
 		System.out.println("shortest_path_length: " + InOut.problem.shortest_path_length);
 		System.out.println("shortest_path_edge_list: " + InOut.problem.shortest_path_edge_list);
 
-		System.out.println(Timer.elapsed_time());
+		System.out.println("elapsed time: " + Timer.elapsed_time());
 
 	}
 }

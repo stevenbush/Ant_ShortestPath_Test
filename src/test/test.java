@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -16,8 +17,9 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Integer aInteger = 2001;
+		Integer bInteger = 2001;
 
-		String str = "stevenbush";
-		System.out.println(str.charAt(0));
+		System.out.println(aInteger.intValue() == bInteger.intValue());
 	}
 }
